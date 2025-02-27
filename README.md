@@ -54,7 +54,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-![Project](frontend/src/assets/Screenshot 2025-02-27 184114.png)
+![Project](frontend/src/assets/poster.png)
 
 
 Youtube video link: https://youtu.be/t-Naww_3raw
