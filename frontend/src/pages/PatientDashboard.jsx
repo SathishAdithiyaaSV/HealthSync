@@ -67,6 +67,20 @@ const PatientDashboard = () => {
       setAppointments(json.appointments);
     }
 
+    async function fetchProfile(){
+      const response = await fetch(`${BACKEND_URL}/api/patient`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("jwtToken")}`,
+          "Content-Type": "application/json",
+        },
+      });
+      const json = await response.json();
+      console.log(json);
+      setHealthMetrics(json);
+    }
+
+    fetchProfile();
     fetchPrescription();
     fetchAppointments();
   }, []);

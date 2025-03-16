@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom"; // Import Link for navigation
+import { Link } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 
 const Navbar = () => {
@@ -11,29 +11,38 @@ const Navbar = () => {
   const toggleDropdown = () => setDropdownOpen(!dropdownOpen);
 
   const handleLogout = () => {
-    // Clear any authentication-related data (e.g., JWT token)
     localStorage.removeItem("jwtToken");
     setIsLoggedIn(false);
-    setShowLogoutConfirm(false); // Close the confirmation popup
-    // Redirect to login if needed
+    setShowLogoutConfirm(false);
     window.location.href = "/login";
   };
 
   useEffect(() => {
     const token = localStorage.getItem("jwtToken");
-    if (token) {
-      setIsLoggedIn(true);
-      const decodedToken = jwtDecode(token);
-      console.log(decodedToken.role);
 
-      if (decodedToken.role === "admin") {
-        setDashboard("/admin-dashboard");
-      } else if (decodedToken.role === "patient") {
-        setDashboard("/patient-dashboard");
-      } else if (decodedToken.role === "doctor") {
-        setDashboard("/doctor-dashboard");
-      } else {
-        setDashboard("/login");
+    if (token) {
+      try {
+        const decodedToken = jwtDecode(token);
+        const currentTime = Math.floor(Date.now() / 1000); // Current time in seconds
+
+        if (decodedToken.exp && decodedToken.exp < currentTime) {
+          console.log("Token expired. Logging out...");
+          handleLogout();
+        } else {
+          setIsLoggedIn(true);
+          if (decodedToken.role === "admin") {
+            setDashboard("/admin-dashboard");
+          } else if (decodedToken.role === "patient") {
+            setDashboard("/patient-dashboard");
+          } else if (decodedToken.role === "doctor") {
+            setDashboard("/doctor-dashboard");
+          } else {
+            setDashboard("/login");
+          }
+        }
+      } catch (error) {
+        console.error("Invalid token:", error);
+        handleLogout();
       }
     } else {
       setIsLoggedIn(false);

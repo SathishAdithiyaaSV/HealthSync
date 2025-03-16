@@ -42,7 +42,7 @@ const ScheduleAppointment = () => {
     try {
       const API_KEY = import.meta.env.VITE_GEMINI_API_KEY; // Replace with your Gemini API key
       const response = await axios.post(
-        `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${API_KEY}`,
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${API_KEY}`,
         {
           contents: [
             {
@@ -59,9 +59,8 @@ const ScheduleAppointment = () => {
       const generatedText =
         response.data.candidates?.[0]?.content?.parts?.[0]?.text || "";
       const matchingDoctor = doctors.find(doctor => 
-        doctor.speciality.toLowerCase() === generatedText.toLowerCase()
+        doctor.speciality.toLowerCase().trim() === generatedText.toLowerCase().trim()
       );
-        
       if (matchingDoctor) {
         setSelectedDoctor(matchingDoctor);
       } else {

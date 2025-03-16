@@ -8,6 +8,10 @@ const Patient = mongoose.model('Patient', new mongoose.Schema({
         unique: true,
     },
     password: String,
+    bloodPressure: String,
+    glucose: String,
+    weight: String,
+    heartRate: String,
   }));
 
 export default Patient;

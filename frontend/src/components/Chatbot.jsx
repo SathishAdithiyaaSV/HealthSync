@@ -16,7 +16,7 @@ const Chatbot = () => {
       const API_KEY =import.meta.env.VITE_GEMINI_API_KEY;
       console.log(import.meta.env.VITE_API_KEY); // Replace with Gemini API key
       const response = await axios.post(
-        `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${API_KEY}`,
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${API_KEY}`,
         {
           contents: [{ parts: [{ text: chatInput }] }],
         }

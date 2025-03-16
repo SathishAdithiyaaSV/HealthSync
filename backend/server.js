@@ -110,6 +110,32 @@ app.get("/api/patients", async (req, res) => {
   }
 });
 
+app.get("/api/patient", patientAuthMiddleware, async (req, res) => {
+  try {
+    res.json(req.patient);
+  } catch (err) {
+    res.status(500).json({ message: "Error fetching doctors", error: err });
+  }
+});
+
+app.post("/api/patient/update", patientAuthMiddleware, async (req, res) => {
+  try {
+    const updatedPatient = await Patient.updateOne(
+      { _id: req.patient._id },  // Filter condition (find the patient by ID)
+      { $set: { name: req.body.name, email: req.body.email } }  // Update values
+    );
+
+    if (updatedPatient.modifiedCount === 0) {
+      return res.status(400).json({ message: "No changes were made" });
+    }
+
+    res.json({ message: "Patient updated successfully" });
+  } catch (err) {
+    res.status(500).json({ message: "Error updating patient", error: err });
+  }
+});
+
+
 app.post("/api/appointments", patientAuthMiddleware, async (req, res) => {
   try {
     const { doctorId, doctorName, date, time } = req.body;
