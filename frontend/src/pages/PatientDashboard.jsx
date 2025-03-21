@@ -10,16 +10,13 @@ const PatientDashboard = () => {
     {
       id: 2,
       message:
-        "Your appointment with Dr. Smith is confirmed for Jan 25th at 3:00 PM.",
+        "Your appointment with Dr. Smith is confirmed for March 25th at 3:00 PM.",
     },
   ]);
 
   const [prescriptions, setPrescriptions] = useState({});
 
-  const [appointments, setAppointments] = useState([
-    { id: 1, doctor: "Dr. Smith", date: "Jan 25, 2025", time: "3:00 PM" },
-    { id: 2, doctor: "Dr. Taylor", date: "Feb 2, 2025", time: "11:00 AM" },
-  ]);
+  const [appointments, setAppointments] = useState([]);
 
   const [healthMetrics, setHealthMetrics] = useState({
     bloodPressure: "120/80 mmHg",

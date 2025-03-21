@@ -57,7 +57,10 @@ const LoginForm = () => {
 
         const json = await response.json();
         setSignState("Sign In")
-        toast.success("Signup successful!");
+        if(json.message)
+          toast.success(json.message);
+        else if(json.error)
+          toast.error(json.error);
       }
     } catch (error) {
       // Handle errors
