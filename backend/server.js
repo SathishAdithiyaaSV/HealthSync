@@ -38,6 +38,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // MongoDB Atlas connection
 const mongoURI = process.env.MONGO_URI;
+console.log(mongoURI);
 mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log("Connected to MongoDB Atlas"))
   .catch((err) => console.log("MongoDB connection error:", err));

@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "tailwindcss/tailwind.css";
 import axios from "axios";
+const BACKEND_URL =
+  import.meta.env.VITE_APP_BACKEND_URL ?? 'http://localhost:5000';
 
 const ScheduleAppointment = () => {
   const [doctors, setDoctors] = useState([]);
@@ -17,7 +19,7 @@ const ScheduleAppointment = () => {
   useEffect(() => {
     const fetchDoctors = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/doctors");
+        const response = await fetch(`${BACKEND_URL}/api/doctors`);
         const data = await response.json();
         setDoctors(data);
       } catch (error) {
@@ -86,7 +88,7 @@ const ScheduleAppointment = () => {
     };
 
     try {
-      const response = await fetch("http://localhost:5000/api/appointments", {
+      const response = await fetch(`${BACKEND_URL}/api/appointments`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("jwtToken")}`,

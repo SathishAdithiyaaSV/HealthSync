@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios"; // For making HTTP requests
 
+const BACKEND_URL =
+  import.meta.env.VITE_APP_BACKEND_URL ?? 'http://localhost:5000';
+
 const AdminDashboard = () => {
   const navigate = useNavigate();
   const [file, setFile] = useState(null);
@@ -13,7 +16,7 @@ const AdminDashboard = () => {
   useEffect(() => {
     const fetchPatients = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/patients");
+        const response = await axios.get(`${BACKEND_URL}/api/patients`);
         setPatients(response.data);
       } catch (error) {
         console.error("Error fetching patients:", error);
